@@ -61,7 +61,8 @@ public final class BanditQuests extends JavaPlugin implements Listener, CommandE
 
   @EventHandler(ignoreCancelled=true) public void onBreak(BlockBreakEvent event){track(event.getPlayer(),"BLOCK_BREAK",event.getBlock().getType().name(),1);}
   @EventHandler(ignoreCancelled=true) public void onPlace(BlockPlaceEvent event){track(event.getPlayer(),"BLOCK_PLACE",event.getBlockPlaced().getType().name(),1);}
-  @EventHandler(ignoreCancelled=true) public void onChat(AsyncPlayerChatEvent event){Bukkit.getScheduler().runTask(this,()->{for(Quest quest:quests.values())if(quest.type.equals("CHAT")&&event.getMessage().trim().length()>=quest.minimumChatLength)track(event.getPlayer(),"CHAT",null,1);});}
+  private void trackChat(Player player,int length){Data value=get(player);boolean changed=false;for(String id:value.jobs){Quest quest=quests.get(id);if(quest==null||value.claimed.contains(id)||!quest.type.equals("CHAT")||length<quest.minimumChatLength)continue;value.progress.merge(id,1,Integer::sum);changed=true;}if(changed)save(player,value);}
+  @EventHandler(ignoreCancelled=true) public void onChat(AsyncPlayerChatEvent event){int length=event.getMessage().trim().length();Bukkit.getScheduler().runTask(this,()->trackChat(event.getPlayer(),length));}
   @EventHandler(ignoreCancelled=true) public void onFish(PlayerFishEvent event){if(event.getState()==PlayerFishEvent.State.CAUGHT_FISH)track(event.getPlayer(),"FISH",null,1);}
   @EventHandler(ignoreCancelled=true) public void onPlayerKill(PlayerDeathEvent event){Player killer=event.getEntity().getKiller();if(killer!=null)track(killer,"KILL_PLAYER",event.getEntityType().name(),1);}
   @EventHandler(ignoreCancelled=true) public void onMobKill(EntityDeathEvent event){if(event.getEntity() instanceof Player)return;Player killer=event.getEntity().getKiller();if(killer!=null)track(killer,"KILL_MOB",event.getEntityType().name(),1);}
