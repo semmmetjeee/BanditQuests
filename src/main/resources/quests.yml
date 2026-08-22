@@ -1,27 +1,112 @@
-# type: KILL_PLAYER, KILL_MOB, MINE_GOLD, MINE_DIAMOND, MINE_ANCIENT_DEBRIS, FISH, PLAY_MINUTES, LOGIN
+# Generic types:
+# BLOCK_BREAK, BLOCK_PLACE, CHAT, KILL_PLAYER, KILL_MOB, FISH, PLAY_MINUTES, JOIN
+#
+# filters.whitelist: only these materials/entity types count.
+# filters.blacklist: everything counts except these materials/entity types.
+# Leave both lists empty to count all matching events.
 quests:
-  pistolero: {type: KILL_PLAYER, goal: 3, marks: 12, name: "Pistolero", description: "Kill 3 players."}
-  outlaw: {type: KILL_PLAYER, goal: 8, marks: 28, name: "Outlaw Work", description: "Kill 8 players."}
-  gunslinger: {type: KILL_PLAYER, goal: 15, marks: 48, name: "Gunslinger", description: "Kill 15 players."}
-  deputy_hunter: {type: KILL_PLAYER, goal: 5, marks: 20, name: "Deputy Hunter", description: "Send 5 rivals packing."}
-  saloon_brawl: {type: KILL_PLAYER, goal: 10, marks: 35, name: "Saloon Brawl", description: "Win 10 fights."}
-  varmint: {type: KILL_MOB, goal: 15, marks: 8, name: "Varmint Hunt", description: "Kill 15 hostile mobs."}
-  pest_control: {type: KILL_MOB, goal: 40, marks: 18, name: "Pest Control", description: "Kill 40 hostile mobs."}
-  monster_mash: {type: KILL_MOB, goal: 80, marks: 32, name: "Monster Mash", description: "Kill 80 hostile mobs."}
-  gold_rush: {type: MINE_GOLD, goal: 12, marks: 12, name: "Gold Rush", description: "Mine 12 gold ore."}
-  prospector: {type: MINE_GOLD, goal: 32, marks: 25, name: "Prospector", description: "Mine 32 gold ore."}
-  gold_fever: {type: MINE_GOLD, goal: 64, marks: 42, name: "Gold Fever", description: "Mine 64 gold ore."}
-  diamond_dog: {type: MINE_DIAMOND, goal: 5, marks: 14, name: "Diamond Dog", description: "Mine 5 diamond ore."}
-  diamond_hand: {type: MINE_DIAMOND, goal: 16, marks: 34, name: "Diamond Hand", description: "Mine 16 diamond ore."}
-  deep_pockets: {type: MINE_DIAMOND, goal: 32, marks: 56, name: "Deep Pockets", description: "Mine 32 diamond ore."}
-  relic_hunter: {type: MINE_ANCIENT_DEBRIS, goal: 2, marks: 25, name: "Relic Hunter", description: "Mine 2 ancient debris."}
-  nether_prospector: {type: MINE_ANCIENT_DEBRIS, goal: 6, marks: 60, name: "Nether Prospector", description: "Mine 6 ancient debris."}
-  angler: {type: FISH, goal: 5, marks: 8, name: "Saloon Angler", description: "Catch 5 fish."}
-  river_rat: {type: FISH, goal: 16, marks: 22, name: "River Rat", description: "Catch 16 fish."}
-  fisher_king: {type: FISH, goal: 32, marks: 40, name: "Fisher King", description: "Catch 32 fish."}
-  warm_seat: {type: PLAY_MINUTES, goal: 20, marks: 8, name: "Warm Seat", description: "Play for 20 minutes."}
-  long_ride: {type: PLAY_MINUTES, goal: 60, marks: 20, name: "Long Ride", description: "Play for 60 minutes."}
-  all_nighter: {type: PLAY_MINUTES, goal: 120, marks: 38, name: "All Nighter", description: "Play for 2 hours."}
-  first_round: {type: LOGIN, goal: 1, marks: 4, name: "First Round", description: "Visit the saloon today."}
-  early_bird: {type: LOGIN, goal: 1, marks: 6, name: "Early Bird", description: "Show up for today's work."}
-  daily_regular: {type: LOGIN, goal: 1, marks: 5, name: "Daily Regular", description: "Clock in at the saloon."}
+  gold_rush:
+    type: BLOCK_BREAK
+    goal: 32
+    rewards:
+      marks: 30
+    filters:
+      whitelist: [GOLD_ORE, DEEPSLATE_GOLD_ORE]
+      blacklist: []
+    display:
+      icon: GOLD_ORE
+      name: "&#f4b52b&lGOLD RUSH"
+      description:
+        - "&fBreak gold ore for the Saloon."
+  outlaw_miner:
+    type: BLOCK_BREAK
+    goal: 64
+    rewards:
+      marks: 55
+    filters:
+      whitelist: []
+      blacklist: [STONE, DEEPSLATE, DIRT, GRASS_BLOCK]
+    display:
+      icon: DIAMOND_PICKAXE
+      name: "&#e3262e&lOUTLAW MINER"
+      description:
+        - "&fBreak any valuable block."
+        - "&7Stone, deepslate and dirt do not count."
+  builder:
+    type: BLOCK_PLACE
+    goal: 128
+    rewards:
+      marks: 28
+    filters:
+      whitelist: [OAK_PLANKS, SPRUCE_PLANKS, COBBLESTONE, STONE_BRICKS]
+      blacklist: []
+    display:
+      icon: BRICKS
+      name: "&#f4b52b&lFRONTIER BUILDER"
+      description:
+        - "&fPlace building blocks for your settlement."
+  chatterbox:
+    type: CHAT
+    goal: 12
+    options:
+      minimum-chat-length: 8
+    rewards:
+      marks: 16
+    display:
+      icon: WRITABLE_BOOK
+      name: "&#f4b52b&lSALOON CHATTER"
+      description:
+        - "&fSend 12 meaningful chat messages."
+  gunslinger:
+    type: KILL_PLAYER
+    goal: 4
+    rewards:
+      marks: 48
+    display:
+      icon: IRON_SWORD
+      name: "&#e3262e&lGUNSLINGER"
+      description:
+        - "&fDefeat 4 rival players."
+  varmint_hunter:
+    type: KILL_MOB
+    goal: 30
+    filters:
+      whitelist: [ZOMBIE, SKELETON, CREEPER, SPIDER]
+      blacklist: []
+    rewards:
+      marks: 24
+    display:
+      icon: CROSSBOW
+      name: "&#f4b52b&lVARMINT HUNTER"
+      description:
+        - "&fHunt hostile creatures."
+  river_rat:
+    type: FISH
+    goal: 12
+    rewards:
+      marks: 18
+    display:
+      icon: FISHING_ROD
+      name: "&#f4b52b&lRIVER RAT"
+      description:
+        - "&fCatch fish from any river."
+  long_ride:
+    type: PLAY_MINUTES
+    goal: 60
+    rewards:
+      marks: 25
+    display:
+      icon: CLOCK
+      name: "&#f4b52b&lLONG RIDE"
+      description:
+        - "&fSpend an hour on the frontier."
+  daily_regular:
+    type: JOIN
+    goal: 1
+    rewards:
+      marks: 8
+    display:
+      icon: OAK_HANGING_SIGN
+      name: "&#f4b52b&lDAILY REGULAR"
+      description:
+        - "&fVisit the Saloon today."
