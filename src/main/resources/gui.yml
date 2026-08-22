@@ -1,29 +1,36 @@
-title: "&#d9a441&lTHE SALOON BOARD"
-# 5-row board: the three jobs sit in the centre row.
-border:
-  material: BLACK_STAINED_GLASS_PANE
-  name: " "
-info:
-  slot: 4
-  material: CLOCK
-  name: "&#d9a441&lDAILY JOBS"
+# Premium Saloon Board layout.
+board:
+  title: "&rThe Saloon Board"
+  size: 54
+  border:
+    enabled: true
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+  info:
+    slot: 4
+    material: CLOCK
+    name: "&#e3262e&lDAILY JOBS"
+    lore:
+      - ""
+      - "&fTake on three fresh jobs every day."
+      - "&fComplete them to earn &#f4b52bMarks&f."
+      - ""
+      - "&#f4b52b→ &fNew jobs arrive tomorrow."
+  quest-slots: [20, 22, 24]
+quest:
+  materials:
+    incomplete: PAPER
+    complete: LIME_DYE
+    claimed: GRAY_DYE
+  name: "%name%"
   lore:
-    - "&7Complete your three daily jobs."
-    - "&7Fresh work arrives tomorrow."
-job:
-  slots: [20, 22, 24]
-  incomplete-material: PAPER
-  complete-material: LIME_DYE
-  claimed-material: GRAY_DYE
-  name: "&#d9a441%name%"
-  lore:
-    - "&7%description%"
     - ""
-    - "&7Progress: &#d9a441%progress%&7/&f%goal%"
-    - "&7Reward: &#d9a441%marks% Marks"
+    - "&#f4b52b&l| &fType: &#f4b52b%type%"
+    - "&#f4b52b&l| &fProgress: &#f4b52b%progress%&f/&#f4b52b%goal%"
+    - "&#f4b52b&l| &fReward: &#f4b52b%marks% &fMarks"
     - ""
     - "%status%"
-status:
-  incomplete: "&cKeep working on this job."
-  complete: "&aClick to claim your Marks!"
-  claimed: "&7Already claimed."
+  status:
+    incomplete: "&fKeep working on this job."
+    complete: "&#f4b52b→ &fClick to claim your Marks."
+    claimed: "&fAlready claimed."
