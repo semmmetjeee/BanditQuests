@@ -1,0 +1,11 @@
+# The Saloon Board gives every player three fresh jobs each day.
+daily-quests: 3
+reset-timezone: Europe/Amsterdam
+# Executed by console when a quest is claimed. Replace this with BanditKills' Marks command.
+reward-command: "banditkills marks add %player% %marks%"
+messages:
+  prefix: "&#d9a441&lSALOON &8» &f"
+  no-permission: "%prefix%&cYou do not have permission."
+  claimed: "%prefix%&aYou claimed &#d9a441%marks% Marks&a."
+  not-complete: "%prefix%&cFinish this job before claiming it."
+  already-claimed: "%prefix%&cYou already claimed this job."
