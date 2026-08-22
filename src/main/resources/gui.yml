@@ -1,0 +1,28 @@
+title: "&#d9a441&lTHE SALOON BOARD"
+border:
+  material: BLACK_STAINED_GLASS_PANE
+  name: " "
+info:
+  slot: 4
+  material: CLOCK
+  name: "&#d9a441&lDAILY JOBS"
+  lore:
+    - "&7Complete your three daily jobs."
+    - "&7Fresh work arrives tomorrow."
+job:
+  slots: [20, 22, 24]
+  incomplete-material: PAPER
+  complete-material: LIME_DYE
+  claimed-material: GRAY_DYE
+  name: "&#d9a441%name%"
+  lore:
+    - "&7%description%"
+    - ""
+    - "&7Progress: &#d9a441%progress%&7/&f%goal%"
+    - "&7Reward: &#d9a441%marks% Marks"
+    - ""
+    - "%status%"
+status:
+  incomplete: "&cKeep working on this job."
+  complete: "&aClick to claim your Marks!"
+  claimed: "&7Already claimed."
