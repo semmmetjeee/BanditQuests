@@ -1,5 +1,5 @@
 name: BanditQuests
-version: 1.0.0
+version: 2.0.0
 main: me.semmmetje.banditquests.BanditQuests
 api-version: '1.21'
 author: semmmetjeee
@@ -9,6 +9,10 @@ commands:
     description: Open the Saloon Board
     aliases: [jobs, quests]
     permission: banditquests.use
+  banditquests:
+    description: Manage BanditQuests
+    usage: /banditquests reload
+    permission: banditquests.admin
 permissions:
   banditquests.use:
     default: true
