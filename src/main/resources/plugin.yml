@@ -1,0 +1,16 @@
+name: BanditQuests
+version: 1.0.0
+main: me.semmmetje.banditquests.BanditQuests
+api-version: '1.21'
+author: semmmetjeee
+softdepend: [BanditKills]
+commands:
+  saloonboard:
+    description: Open the Saloon Board
+    aliases: [jobs, quests]
+    permission: banditquests.use
+permissions:
+  banditquests.use:
+    default: true
+  banditquests.admin:
+    default: op
