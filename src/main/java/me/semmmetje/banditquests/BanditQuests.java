@@ -1,6 +1,6 @@
 package me.semmmetje.banditquests;
 
-import org.bukkit.*;import org.bukkit.command.*;import org.bukkit.configuration.ConfigurationSection;import org.bukkit.configuration.file.YamlConfiguration;import org.bukkit.entity.*;import org.bukkit.event.*;import org.bukkit.event.block.BlockBreakEvent;import org.bukkit.event.entity.EntityDeathEvent;import org.bukkit.event.inventory.InventoryClickEvent;import org.bukkit.event.player.*;import org.bukkit.inventory.*;import org.bukkit.inventory.meta.ItemMeta;import org.bukkit.plugin.java.JavaPlugin;import java.io.File;import java.io.IOException;import java.time.*;import java.util.*;
+import org.bukkit.*;import org.bukkit.command.*;import org.bukkit.configuration.ConfigurationSection;import org.bukkit.configuration.file.YamlConfiguration;import org.bukkit.entity.*;import org.bukkit.event.*;import org.bukkit.event.block.BlockBreakEvent;import org.bukkit.event.entity.EntityDeathEvent;import org.bukkit.event.entity.PlayerDeathEvent;import org.bukkit.event.inventory.InventoryClickEvent;import org.bukkit.event.player.*;import org.bukkit.inventory.*;import org.bukkit.inventory.meta.ItemMeta;import org.bukkit.plugin.java.JavaPlugin;import java.io.File;import java.io.IOException;import java.time.*;import java.util.*;
 
 public final class BanditQuests extends JavaPlugin implements Listener,CommandExecutor {
  private final Map<String,Quest> quests=new LinkedHashMap<>(); private final Map<UUID,Data> data=new HashMap<>(); private File folder; private YamlConfiguration gui;
