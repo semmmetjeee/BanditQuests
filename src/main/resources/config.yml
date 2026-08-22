@@ -1,11 +1,18 @@
-# The Saloon Board gives every player three fresh jobs each day.
-daily-quests: 3
-reset-timezone: Europe/Amsterdam
-# Executed by console when a quest is claimed. Works out of the box with BanditKills.
-reward-command: "banditkills give %player% %marks%"
+# BanditQuests 2.0 — daily jobs for the Saloon Board.
+daily:
+  quests-per-player: 3
+  reset-timezone: Europe/Amsterdam
+
+# Every command is executed by console when a completed quest is claimed.
+# %player%, %marks% and %quest% are available.
+rewards:
+  commands:
+    - "banditkills give %player% %marks%"
+
 messages:
-  prefix: "&#d9a441&lSALOON &8» &f"
-  no-permission: "%prefix%&cYou do not have permission."
-  claimed: "%prefix%&aYou claimed &#d9a441%marks% Marks&a."
-  not-complete: "%prefix%&cFinish this job before claiming it."
-  already-claimed: "%prefix%&cYou already claimed this job."
+  prefix: "&#e3262e&lSALOON &7→ &f"
+  no-permission: "%prefix%&fYou do not have permission."
+  reload: "%prefix%&fBanditQuests reloaded."
+  claimed: "%prefix%&fYou claimed &#f4b52b%marks% &fMarks."
+  not-complete: "%prefix%&fFinish this job before claiming it."
+  already-claimed: "%prefix%&fYou already claimed this job."
