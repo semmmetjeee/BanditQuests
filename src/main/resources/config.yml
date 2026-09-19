@@ -1,1 +1,8 @@
-sed: can't read src/main/resources/config.yml: No such file or directory
+# Messages and global behaviour for the Autumn Quest Pass.
+messages:
+  prefix: "&#ff8c00&lHERFSTPAS &8» &f"
+  no-permission: "%prefix%Je hebt hier geen permissie voor."
+  reload: "%prefix%Configuratie opnieuw geladen."
+  level-complete: "%prefix%Je hebt level &#ffd166%level% &fvan %quest% voltooid! Je reward is gegeven."
+  quest-complete: "%prefix%&lGEWELDIG! &fJe hebt alle levels van %quest% voltooid."
+
