@@ -102,6 +102,12 @@ public final class BanditQuests extends JavaPlugin implements Listener, CommandE
 
   @EventHandler(ignoreCancelled = true) public void onBreak(BlockBreakEvent e) { track(e.getPlayer(), "BLOCK_BREAK", e.getBlock().getType().name(), 1); }
   @EventHandler(ignoreCancelled = true) public void onPlace(BlockPlaceEvent e) { track(e.getPlayer(), "BLOCK_PLACE", e.getBlockPlaced().getType().name(), 1); }
+  /** A pumpkin is carved by right-clicking it with shears; it is not broken. */
+  @EventHandler(ignoreCancelled = true) public void onPumpkinCarve(PlayerInteractEvent e) {
+    if (e.getAction() != Action.RIGHT_CLICK_BLOCK || e.getClickedBlock() == null || e.getClickedBlock().getType() != Material.PUMPKIN) return;
+    ItemStack hand = e.getItem();
+    if (hand != null && hand.getType() == Material.SHEARS) track(e.getPlayer(), "PUMPKIN_CARVE", null, 1);
+  }
   @EventHandler(ignoreCancelled = true) public void onFish(PlayerFishEvent e) { if (e.getState() == PlayerFishEvent.State.CAUGHT_FISH) track(e.getPlayer(), "FISH", null, 1); }
   @EventHandler(ignoreCancelled = true) public void onPlayerKill(PlayerDeathEvent e) { Player killer = e.getEntity().getKiller(); if (killer != null) track(killer, "KILL_PLAYER", null, 1); }
   @EventHandler(ignoreCancelled = true) public void onMobKill(EntityDeathEvent e) { if (!(e.getEntity() instanceof Player) && e.getEntity().getKiller() != null) track(e.getEntity().getKiller(), "KILL_MOB", e.getEntityType().name(), 1); }
