@@ -1,1 +1,32 @@
-sed: can't read src/main/resources/gui.yml: No such file or directory
+# 6-row Halloween menu. Quest icons are intentionally centered in the two middle rows.
+board:
+  title: "&#ff8c00&l✦ HERFSTPAS ✦"
+  size: 54
+  border:
+    material: ORANGE_STAINED_GLASS_PANE
+    name: " "
+  info:
+    slot: 4
+    material: JACK_O_LANTERN
+    name: "&#ff8c00&lHERFSTPAS"
+    lore:
+      - ""
+      - "&fVoltooi herfst- en Halloweenquests."
+      - "&fElke quest heeft &#ffd16610 levels&f."
+      - "&7Rewards worden automatisch gegeven."
+  # Ten centered slots in a 6-row inventory.
+  quest-slots: [20, 21, 22, 23, 24, 29, 30, 31, 32, 33]
+quest:
+  materials:
+    completed: LIME_DYE
+  name: "%name%"
+  lore:
+    - ""
+    - "&#ff8c00&l| &fLevel: &#ffd166%level%&7/&#ffd166%max-level%"
+    - "&#ff8c00&l| &fVoortgang: &#ffd166%progress%&7/&#ffd166%goal%"
+    - ""
+    - "%status%"
+  status:
+    active: "&7Voltooi dit level voor je volgende reward."
+    completed: "&#7CFC00&l✓ &fAlle levels voltooid!"
+
