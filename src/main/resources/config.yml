@@ -1,18 +1,1 @@
-# BanditQuests 2.0 — daily jobs for the Saloon Board.
-daily:
-  quests-per-player: 3
-  reset-timezone: Europe/Amsterdam
-
-# Every command is executed by console when a completed quest is claimed.
-# %player%, %marks% and %quest% are available.
-rewards:
-  commands:
-    - "banditkills give %player% %marks%"
-
-messages:
-  prefix: "&#e3262e&lSALOON &7→ &f"
-  no-permission: "%prefix%&fYou do not have permission."
-  reload: "%prefix%&fBanditQuests reloaded."
-  claimed: "%prefix%&fYou claimed &#f4b52b%marks% &fMarks."
-  not-complete: "%prefix%&fFinish this job before claiming it."
-  already-claimed: "%prefix%&fYou already claimed this job."
+sed: can't read src/main/resources/config.yml: No such file or directory
