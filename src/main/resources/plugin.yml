@@ -1,1 +1,21 @@
-sed: can't read src/main/resources/plugin.yml: No such file or directory
+name: BanditQuests
+version: 3.0.0
+main: me.semmmetje.banditquests.BanditQuests
+api-version: '1.21'
+author: semmmetjeee
+softdepend: [Vault]
+commands:
+  herfstpas:
+    description: Open de Herfstpas
+    aliases: [halloweenpas, autumnpass]
+    permission: banditquests.use
+  banditquests:
+    description: Manage BanditQuests
+    usage: /banditquests reload
+    permission: banditquests.admin
+permissions:
+  banditquests.use:
+    default: true
+  banditquests.admin:
+    default: op
+
