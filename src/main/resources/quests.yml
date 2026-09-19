@@ -5,9 +5,10 @@
 # Available placeholders: %player%, %quest%, %level%, %goal%
 quests:
   pumpkin_carver:
-    type: BLOCK_BREAK
+    # A pumpkin is carved by right-clicking it with shears.
+    type: PUMPKIN_CARVE
     filters:
-      whitelist: [CARVED_PUMPKIN]
+      whitelist: []
       blacklist: []
     display:
       icon: JACK_O_LANTERN
@@ -616,4 +617,3 @@ quests:
         rewards:
           commands:
             - "money give %player% 100000"
-
