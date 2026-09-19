@@ -1,36 +1,32 @@
-# Premium Saloon Board layout.
+# 6-row Halloween menu. Quest icons are intentionally centered in the two middle rows.
 board:
-  title: "&rThe Saloon Board"
+  title: "&#ff8c00&l✦ HERFSTPAS ✦"
   size: 54
   border:
-    enabled: true
-    material: GRAY_STAINED_GLASS_PANE
+    material: ORANGE_STAINED_GLASS_PANE
     name: " "
   info:
     slot: 4
-    material: CLOCK
-    name: "&#e3262e&lDAILY JOBS"
+    material: JACK_O_LANTERN
+    name: "&#ff8c00&lHERFSTPAS"
     lore:
       - ""
-      - "&fTake on three fresh jobs every day."
-      - "&fComplete them to earn &#f4b52bMarks&f."
-      - ""
-      - "&#f4b52b→ &fNew jobs arrive tomorrow."
-  quest-slots: [20, 22, 24]
+      - "&fVoltooi herfst- en Halloweenquests."
+      - "&fElke quest heeft &#ffd16610 levels&f."
+      - "&7Rewards worden automatisch gegeven."
+  # Ten centered slots in a 6-row inventory.
+  quest-slots: [20, 21, 22, 23, 24, 29, 30, 31, 32, 33]
 quest:
   materials:
-    incomplete: PAPER
-    complete: LIME_DYE
-    claimed: GRAY_DYE
+    completed: LIME_DYE
   name: "%name%"
   lore:
     - ""
-    - "&#f4b52b&l| &fType: &#f4b52b%type%"
-    - "&#f4b52b&l| &fProgress: &#f4b52b%progress%&f/&#f4b52b%goal%"
-    - "&#f4b52b&l| &fReward: &#f4b52b%marks% &fMarks"
+    - "&#ff8c00&l| &fLevel: &#ffd166%level%&7/&#ffd166%max-level%"
+    - "&#ff8c00&l| &fVoortgang: &#ffd166%progress%&7/&#ffd166%goal%"
     - ""
     - "%status%"
   status:
-    incomplete: "&fKeep working on this job."
-    complete: "&#f4b52b→ &fClick to claim your Marks."
-    claimed: "&fAlready claimed."
+    active: "&7Voltooi dit level voor je volgende reward."
+    completed: "&#7CFC00&l✓ &fAlle levels voltooid!"
+

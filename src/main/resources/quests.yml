@@ -1,112 +1,619 @@
-# Generic types:
-# BLOCK_BREAK, BLOCK_PLACE, CHAT, KILL_PLAYER, KILL_MOB, FISH, PLAY_MINUTES, JOIN
-#
-# filters.whitelist: only these materials/entity types count.
-# filters.blacklist: everything counts except these materials/entity types.
-# Leave both lists empty to count all matching events.
+# Autumn / Halloween Quest Pass
+# Every category has 10 independently configurable levels.
+# Supported types: BLOCK_BREAK, BLOCK_PLACE, CHAT, KILL_PLAYER, KILL_MOB, FISH, PLAY_MINUTES, JOIN
+# Each rewards.commands entry is dispatched by console as soon as that level is completed.
+# Available placeholders: %player%, %quest%, %level%, %goal%
 quests:
-  gold_rush:
+  pumpkin_carver:
     type: BLOCK_BREAK
-    goal: 32
-    rewards:
-      marks: 30
     filters:
-      whitelist: [GOLD_ORE, DEEPSLATE_GOLD_ORE]
+      whitelist: [CARVED_PUMPKIN]
       blacklist: []
     display:
-      icon: GOLD_ORE
-      name: "&#f4b52b&lGOLD RUSH"
+      icon: JACK_O_LANTERN
+      name: "&#ff8c00&lPUMPKIN CARVER"
       description:
-        - "&fBreak gold ore for the Saloon."
-  outlaw_miner:
-    type: BLOCK_BREAK
-    goal: 64
-    rewards:
-      marks: 55
+        - "&7Carve pumpkins for the autumn market."
+    levels:
+      1:
+        goal: 16
+        rewards:
+          commands:
+            - "money give %player% 5000"
+      2:
+        goal: 32
+        rewards:
+          commands:
+            - "money give %player% 7500"
+      3:
+        goal: 64
+        rewards:
+          commands:
+            - "money give %player% 10000"
+      4:
+        goal: 96
+        rewards:
+          commands:
+            - "money give %player% 15000"
+      5:
+        goal: 128
+        rewards:
+          commands:
+            - "money give %player% 20000"
+      6:
+        goal: 192
+        rewards:
+          commands:
+            - "money give %player% 27500"
+      7:
+        goal: 256
+        rewards:
+          commands:
+            - "money give %player% 35000"
+      8:
+        goal: 384
+        rewards:
+          commands:
+            - "money give %player% 45000"
+      9:
+        goal: 512
+        rewards:
+          commands:
+            - "money give %player% 60000"
+      10:
+        goal: 768
+        rewards:
+          commands:
+            - "money give %player% 100000"
+  spider_slayer:
+    type: KILL_MOB
     filters:
-      whitelist: []
-      blacklist: [STONE, DEEPSLATE, DIRT, GRASS_BLOCK]
-    display:
-      icon: DIAMOND_PICKAXE
-      name: "&#e3262e&lOUTLAW MINER"
-      description:
-        - "&fBreak any valuable block."
-        - "&7Stone, deepslate and dirt do not count."
-  builder:
-    type: BLOCK_PLACE
-    goal: 128
-    rewards:
-      marks: 28
-    filters:
-      whitelist: [OAK_PLANKS, SPRUCE_PLANKS, COBBLESTONE, STONE_BRICKS]
+      whitelist: [SPIDER]
       blacklist: []
     display:
-      icon: BRICKS
-      name: "&#f4b52b&lFRONTIER BUILDER"
+      icon: SPIDER_EYE
+      name: "&#7f1d1d&lSPIDER SLAYER"
       description:
-        - "&fPlace building blocks for your settlement."
-  chatterbox:
-    type: CHAT
-    goal: 12
-    options:
-      minimum-chat-length: 8
-    rewards:
-      marks: 16
-    display:
-      icon: WRITABLE_BOOK
-      name: "&#f4b52b&lSALOON CHATTER"
-      description:
-        - "&fSend 12 meaningful chat messages."
-  gunslinger:
-    type: KILL_PLAYER
-    goal: 4
-    rewards:
-      marks: 48
+        - "&7Clear spooky spiders from the roads."
+    levels:
+      1:
+        goal: 16
+        rewards:
+          commands:
+            - "money give %player% 5000"
+      2:
+        goal: 32
+        rewards:
+          commands:
+            - "money give %player% 7500"
+      3:
+        goal: 64
+        rewards:
+          commands:
+            - "money give %player% 10000"
+      4:
+        goal: 96
+        rewards:
+          commands:
+            - "money give %player% 15000"
+      5:
+        goal: 128
+        rewards:
+          commands:
+            - "money give %player% 20000"
+      6:
+        goal: 192
+        rewards:
+          commands:
+            - "money give %player% 27500"
+      7:
+        goal: 256
+        rewards:
+          commands:
+            - "money give %player% 35000"
+      8:
+        goal: 384
+        rewards:
+          commands:
+            - "money give %player% 45000"
+      9:
+        goal: 512
+        rewards:
+          commands:
+            - "money give %player% 60000"
+      10:
+        goal: 768
+        rewards:
+          commands:
+            - "money give %player% 100000"
+  undead_hunter:
+    type: KILL_MOB
+    filters:
+      whitelist: [ZOMBIE]
+      blacklist: []
     display:
       icon: IRON_SWORD
-      name: "&#e3262e&lGUNSLINGER"
+      name: "&#79b84a&lUNDEAD HUNTER"
       description:
-        - "&fDefeat 4 rival players."
-  varmint_hunter:
-    type: KILL_MOB
-    goal: 30
+        - "&7Keep the undead out of town."
+    levels:
+      1:
+        goal: 16
+        rewards:
+          commands:
+            - "money give %player% 5000"
+      2:
+        goal: 32
+        rewards:
+          commands:
+            - "money give %player% 7500"
+      3:
+        goal: 64
+        rewards:
+          commands:
+            - "money give %player% 10000"
+      4:
+        goal: 96
+        rewards:
+          commands:
+            - "money give %player% 15000"
+      5:
+        goal: 128
+        rewards:
+          commands:
+            - "money give %player% 20000"
+      6:
+        goal: 192
+        rewards:
+          commands:
+            - "money give %player% 27500"
+      7:
+        goal: 256
+        rewards:
+          commands:
+            - "money give %player% 35000"
+      8:
+        goal: 384
+        rewards:
+          commands:
+            - "money give %player% 45000"
+      9:
+        goal: 512
+        rewards:
+          commands:
+            - "money give %player% 60000"
+      10:
+        goal: 768
+        rewards:
+          commands:
+            - "money give %player% 100000"
+  candy_collector:
+    type: BLOCK_BREAK
     filters:
-      whitelist: [ZOMBIE, SKELETON, CREEPER, SPIDER]
+      whitelist: [MELON]
       blacklist: []
-    rewards:
-      marks: 24
     display:
-      icon: CROSSBOW
-      name: "&#f4b52b&lVARMINT HUNTER"
+      icon: COOKIE
+      name: "&#ff66a3&lCANDY COLLECTOR"
       description:
-        - "&fHunt hostile creatures."
-  river_rat:
+        - "&7Harvest sweet treats for Halloween."
+    levels:
+      1:
+        goal: 16
+        rewards:
+          commands:
+            - "money give %player% 5000"
+      2:
+        goal: 32
+        rewards:
+          commands:
+            - "money give %player% 7500"
+      3:
+        goal: 64
+        rewards:
+          commands:
+            - "money give %player% 10000"
+      4:
+        goal: 96
+        rewards:
+          commands:
+            - "money give %player% 15000"
+      5:
+        goal: 128
+        rewards:
+          commands:
+            - "money give %player% 20000"
+      6:
+        goal: 192
+        rewards:
+          commands:
+            - "money give %player% 27500"
+      7:
+        goal: 256
+        rewards:
+          commands:
+            - "money give %player% 35000"
+      8:
+        goal: 384
+        rewards:
+          commands:
+            - "money give %player% 45000"
+      9:
+        goal: 512
+        rewards:
+          commands:
+            - "money give %player% 60000"
+      10:
+        goal: 768
+        rewards:
+          commands:
+            - "money give %player% 100000"
+  autumn_builder:
+    type: BLOCK_PLACE
+    filters:
+      whitelist: [OAK_LEAVES]
+      blacklist: []
+    display:
+      icon: OAK_LEAVES
+      name: "&#c46a22&lAUTUMN BUILDER"
+      description:
+        - "&7Decorate the town in autumn colours."
+    levels:
+      1:
+        goal: 16
+        rewards:
+          commands:
+            - "money give %player% 5000"
+      2:
+        goal: 32
+        rewards:
+          commands:
+            - "money give %player% 7500"
+      3:
+        goal: 64
+        rewards:
+          commands:
+            - "money give %player% 10000"
+      4:
+        goal: 96
+        rewards:
+          commands:
+            - "money give %player% 15000"
+      5:
+        goal: 128
+        rewards:
+          commands:
+            - "money give %player% 20000"
+      6:
+        goal: 192
+        rewards:
+          commands:
+            - "money give %player% 27500"
+      7:
+        goal: 256
+        rewards:
+          commands:
+            - "money give %player% 35000"
+      8:
+        goal: 384
+        rewards:
+          commands:
+            - "money give %player% 45000"
+      9:
+        goal: 512
+        rewards:
+          commands:
+            - "money give %player% 60000"
+      10:
+        goal: 768
+        rewards:
+          commands:
+            - "money give %player% 100000"
+  soul_fisher:
     type: FISH
-    goal: 12
-    rewards:
-      marks: 18
+    filters:
+      whitelist: []
+      blacklist: []
     display:
       icon: FISHING_ROD
-      name: "&#f4b52b&lRIVER RAT"
+      name: "&#40e0d0&lSOUL FISHER"
       description:
-        - "&fCatch fish from any river."
-  long_ride:
+        - "&7Catch fish beneath the misty moon."
+    levels:
+      1:
+        goal: 16
+        rewards:
+          commands:
+            - "money give %player% 5000"
+      2:
+        goal: 32
+        rewards:
+          commands:
+            - "money give %player% 7500"
+      3:
+        goal: 64
+        rewards:
+          commands:
+            - "money give %player% 10000"
+      4:
+        goal: 96
+        rewards:
+          commands:
+            - "money give %player% 15000"
+      5:
+        goal: 128
+        rewards:
+          commands:
+            - "money give %player% 20000"
+      6:
+        goal: 192
+        rewards:
+          commands:
+            - "money give %player% 27500"
+      7:
+        goal: 256
+        rewards:
+          commands:
+            - "money give %player% 35000"
+      8:
+        goal: 384
+        rewards:
+          commands:
+            - "money give %player% 45000"
+      9:
+        goal: 512
+        rewards:
+          commands:
+            - "money give %player% 60000"
+      10:
+        goal: 768
+        rewards:
+          commands:
+            - "money give %player% 100000"
+  graveyard_chat:
+    type: CHAT
+    filters:
+      whitelist: []
+      blacklist: []
+    options:
+      minimum-chat-length: 8
+    display:
+      icon: WRITABLE_BOOK
+      name: "&#b58cff&lGRAVEYARD CHAT"
+      description:
+        - "&7Share messages with the coven."
+    levels:
+      1:
+        goal: 16
+        rewards:
+          commands:
+            - "money give %player% 5000"
+      2:
+        goal: 32
+        rewards:
+          commands:
+            - "money give %player% 7500"
+      3:
+        goal: 64
+        rewards:
+          commands:
+            - "money give %player% 10000"
+      4:
+        goal: 96
+        rewards:
+          commands:
+            - "money give %player% 15000"
+      5:
+        goal: 128
+        rewards:
+          commands:
+            - "money give %player% 20000"
+      6:
+        goal: 192
+        rewards:
+          commands:
+            - "money give %player% 27500"
+      7:
+        goal: 256
+        rewards:
+          commands:
+            - "money give %player% 35000"
+      8:
+        goal: 384
+        rewards:
+          commands:
+            - "money give %player% 45000"
+      9:
+        goal: 512
+        rewards:
+          commands:
+            - "money give %player% 60000"
+      10:
+        goal: 768
+        rewards:
+          commands:
+            - "money give %player% 100000"
+  trick_or_treater:
+    type: JOIN
+    filters:
+      whitelist: []
+      blacklist: []
+    display:
+      icon: PLAYER_HEAD
+      name: "&#ffb000&lTRICK OR TREATER"
+      description:
+        - "&7Visit the server during the event."
+    levels:
+      1:
+        goal: 1
+        rewards:
+          commands:
+            - "money give %player% 5000"
+      2:
+        goal: 2
+        rewards:
+          commands:
+            - "money give %player% 7500"
+      3:
+        goal: 4
+        rewards:
+          commands:
+            - "money give %player% 10000"
+      4:
+        goal: 6
+        rewards:
+          commands:
+            - "money give %player% 15000"
+      5:
+        goal: 8
+        rewards:
+          commands:
+            - "money give %player% 20000"
+      6:
+        goal: 12
+        rewards:
+          commands:
+            - "money give %player% 27500"
+      7:
+        goal: 16
+        rewards:
+          commands:
+            - "money give %player% 35000"
+      8:
+        goal: 24
+        rewards:
+          commands:
+            - "money give %player% 45000"
+      9:
+        goal: 32
+        rewards:
+          commands:
+            - "money give %player% 60000"
+      10:
+        goal: 48
+        rewards:
+          commands:
+            - "money give %player% 100000"
+  night_watch:
     type: PLAY_MINUTES
-    goal: 60
-    rewards:
-      marks: 25
+    filters:
+      whitelist: []
+      blacklist: []
     display:
       icon: CLOCK
-      name: "&#f4b52b&lLONG RIDE"
+      name: "&#5a3d9a&lNIGHT WATCH"
       description:
-        - "&fSpend an hour on the frontier."
-  daily_regular:
-    type: JOIN
-    goal: 1
-    rewards:
-      marks: 8
+        - "&7Stay vigilant through the night."
+    levels:
+      1:
+        goal: 8
+        rewards:
+          commands:
+            - "money give %player% 5000"
+      2:
+        goal: 16
+        rewards:
+          commands:
+            - "money give %player% 7500"
+      3:
+        goal: 32
+        rewards:
+          commands:
+            - "money give %player% 10000"
+      4:
+        goal: 48
+        rewards:
+          commands:
+            - "money give %player% 15000"
+      5:
+        goal: 64
+        rewards:
+          commands:
+            - "money give %player% 20000"
+      6:
+        goal: 96
+        rewards:
+          commands:
+            - "money give %player% 27500"
+      7:
+        goal: 128
+        rewards:
+          commands:
+            - "money give %player% 35000"
+      8:
+        goal: 192
+        rewards:
+          commands:
+            - "money give %player% 45000"
+      9:
+        goal: 256
+        rewards:
+          commands:
+            - "money give %player% 60000"
+      10:
+        goal: 384
+        rewards:
+          commands:
+            - "money give %player% 100000"
+  creeper_exterminator:
+    type: KILL_MOB
+    filters:
+      whitelist: [CREEPER]
+      blacklist: []
     display:
-      icon: OAK_HANGING_SIGN
-      name: "&#f4b52b&lDAILY REGULAR"
+      icon: CREEPER_HEAD
+      name: "&#61b13d&lCREEPER EXTERMINATOR"
       description:
-        - "&fVisit the Saloon today."
+        - "&7Stop creepers before they ruin the party."
+    levels:
+      1:
+        goal: 16
+        rewards:
+          commands:
+            - "money give %player% 5000"
+      2:
+        goal: 32
+        rewards:
+          commands:
+            - "money give %player% 7500"
+      3:
+        goal: 64
+        rewards:
+          commands:
+            - "money give %player% 10000"
+      4:
+        goal: 96
+        rewards:
+          commands:
+            - "money give %player% 15000"
+      5:
+        goal: 128
+        rewards:
+          commands:
+            - "money give %player% 20000"
+      6:
+        goal: 192
+        rewards:
+          commands:
+            - "money give %player% 27500"
+      7:
+        goal: 256
+        rewards:
+          commands:
+            - "money give %player% 35000"
+      8:
+        goal: 384
+        rewards:
+          commands:
+            - "money give %player% 45000"
+      9:
+        goal: 512
+        rewards:
+          commands:
+            - "money give %player% 60000"
+      10:
+        goal: 768
+        rewards:
+          commands:
+            - "money give %player% 100000"
+

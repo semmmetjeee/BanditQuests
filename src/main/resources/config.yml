@@ -1,18 +1,8 @@
-# BanditQuests 2.0 — daily jobs for the Saloon Board.
-daily:
-  quests-per-player: 3
-  reset-timezone: Europe/Amsterdam
-
-# Every command is executed by console when a completed quest is claimed.
-# %player%, %marks% and %quest% are available.
-rewards:
-  commands:
-    - "banditkills give %player% %marks%"
-
+# Messages and global behaviour for the Autumn Quest Pass.
 messages:
-  prefix: "&#e3262e&lSALOON &7→ &f"
-  no-permission: "%prefix%&fYou do not have permission."
-  reload: "%prefix%&fBanditQuests reloaded."
-  claimed: "%prefix%&fYou claimed &#f4b52b%marks% &fMarks."
-  not-complete: "%prefix%&fFinish this job before claiming it."
-  already-claimed: "%prefix%&fYou already claimed this job."
+  prefix: "&#ff8c00&lHERFSTPAS &8» &f"
+  no-permission: "%prefix%Je hebt hier geen permissie voor."
+  reload: "%prefix%Configuratie opnieuw geladen."
+  level-complete: "%prefix%Je hebt level &#ffd166%level% &fvan %quest% voltooid! Je reward is gegeven."
+  quest-complete: "%prefix%&lGEWELDIG! &fJe hebt alle levels van %quest% voltooid."
+

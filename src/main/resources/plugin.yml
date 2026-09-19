@@ -1,13 +1,13 @@
 name: BanditQuests
-version: 2.0.0
+version: 3.0.0
 main: me.semmmetje.banditquests.BanditQuests
 api-version: '1.21'
 author: semmmetjeee
-softdepend: [BanditKills]
+softdepend: [Vault]
 commands:
-  saloonboard:
-    description: Open the Saloon Board
-    aliases: [jobs, quests]
+  herfstpas:
+    description: Open de Herfstpas
+    aliases: [halloweenpas, autumnpass]
     permission: banditquests.use
   banditquests:
     description: Manage BanditQuests
@@ -18,3 +18,4 @@ permissions:
     default: true
   banditquests.admin:
     default: op
+
