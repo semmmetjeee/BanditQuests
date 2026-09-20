@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.block.*;
 import org.bukkit.event.entity.*;
-import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -106,6 +106,7 @@ public final class BanditQuests extends JavaPlugin implements Listener, CommandE
     if (hand != null && hand.getType() == Material.SHEARS) track(e.getPlayer(), "PUMPKIN_CARVE", null, 1);
   }
   @EventHandler(ignoreCancelled = true) public void onFish(PlayerFishEvent e) { if (e.getState() == PlayerFishEvent.State.CAUGHT_FISH) track(e.getPlayer(), "FISH", null, 1); }
+  @EventHandler(ignoreCancelled = true) public void onCraft(CraftItemEvent e) { if (e.getWhoClicked() instanceof Player p && e.getRecipe().getResult().getType() == Material.PUMPKIN_PIE) track(p, "CRAFT", "PUMPKIN_PIE", 1); }
   @EventHandler(ignoreCancelled = true) public void onPlayerKill(PlayerDeathEvent e) { Player killer = e.getEntity().getKiller(); if (killer != null) track(killer, "KILL_PLAYER", null, 1); }
   @EventHandler(ignoreCancelled = true) public void onMobKill(EntityDeathEvent e) { if (!(e.getEntity() instanceof Player) && e.getEntity().getKiller() != null) track(e.getEntity().getKiller(), "KILL_MOB", e.getEntityType().name(), 1); }
   @EventHandler(ignoreCancelled = true) public void onChat(AsyncPlayerChatEvent e) { int length = e.getMessage().trim().length(); Bukkit.getScheduler().runTask(this, () -> trackChat(e.getPlayer(), length)); }
@@ -134,7 +135,8 @@ public final class BanditQuests extends JavaPlugin implements Listener, CommandE
     List<Integer> slots = gui.getIntegerList("board.quest-slots"); int i = 0;
     for (Quest q : quests.values()) { if (i >= slots.size()) break; int levelIndex = value.level.getOrDefault(q.id, 0); boolean done = levelIndex >= q.levels.size(); int progress = value.progress.getOrDefault(q.id, 0); Level level = done ? q.levels.get(q.levels.size()-1) : q.levels.get(levelIndex);
       boolean ready = value.readyToClaim.contains(q.id);
-      Map<String,String> vars = Map.of("name",q.name,"progress",String.valueOf(Math.min(progress, level.goal)),"goal",String.valueOf(level.goal),"unit",progressUnit(q),"level",String.valueOf(Math.min(levelIndex+1,q.levels.size())),"max-level",String.valueOf(q.levels.size()),"status",gui.getString(done ? "quest.status.completed" : ready ? "quest.status.ready" : "quest.status.active"));
+      String bottomLine = gui.getString(done ? "quest.bottom-lines.completed" : ready ? "quest.bottom-lines.ready" : "quest.bottom-lines.active", "");
+      Map<String,String> vars = Map.of("name",q.name,"progress",String.valueOf(Math.min(progress, level.goal)),"goal",String.valueOf(level.goal),"unit",progressUnit(q),"level",String.valueOf(Math.min(levelIndex+1,q.levels.size())),"max-level",String.valueOf(q.levels.size()),"bottom-line",bottomLine);
       List<String> lore = new ArrayList<>();
       for (String line : gui.getStringList("quest.header-lore")) lore.add(replace(line, vars));
       for (String line : q.description) lore.add(replace(line, vars));
@@ -150,8 +152,10 @@ public final class BanditQuests extends JavaPlugin implements Listener, CommandE
     int levelIndex = value.level.getOrDefault(q.id, 0); if (levelIndex >= q.levels.size()) return; Level level = q.levels.get(levelIndex);
     for (String command : level.rewards) Bukkit.dispatchCommand(Bukkit.getConsoleSender(), replace(command, Map.of("player", p.getName(), "quest", q.id, "level", String.valueOf(levelIndex + 1), "goal", String.valueOf(level.goal))));
     value.readyToClaim.remove(q.id); value.progress.put(q.id, 0); value.level.put(q.id, levelIndex + 1); save(p, value);
-    message(p, levelIndex + 1 >= q.levels.size() ? "quest-complete" : "reward-claimed", Map.of("quest", plain(q.name), "level", String.valueOf(levelIndex + 1))); open(p);
+    message(p, levelIndex + 1 >= q.levels.size() ? "quest-complete" : "reward-claimed", Map.of("quest", plain(q.name), "level", String.valueOf(levelIndex + 1)));
+    Bukkit.getScheduler().runTask(this, () -> open(p));
   }
+  @EventHandler public void drag(InventoryDragEvent e) { if (e.getInventory().getHolder() instanceof PassHolder && e.getRawSlots().stream().anyMatch(slot -> slot < e.getInventory().getSize())) e.setCancelled(true); }
   private Material material(String value, Material fallback) { Material material = Material.matchMaterial(value == null ? "" : value); return material == null ? fallback : material; }
   private String progressUnit(Quest quest) { return quest.type.equals("PLAY_MINUTES") ? " Minuten" : ""; }
   private ItemStack item(Material material, String name, List<String> lore) { ItemStack stack = new ItemStack(material); ItemMeta meta = stack.getItemMeta(); meta.setDisplayName(color(name)); meta.setLore(lore.stream().map(this::color).toList()); stack.setItemMeta(meta); return stack; }
