@@ -14,7 +14,8 @@ quests:
       icon: JACK_O_LANTERN
       name: "&#ff8c00&lPUMPKIN CARVER"
       description:
-        - "&7Carve pumpkins for the autumn market."
+        - "&fSnijd &#f6d151%goal% &fpompoenen met een schaar."
+        - "&7Vind pompoenen en rechtsklik erop met je schaar."
     levels:
       1:
         goal: 16
@@ -75,7 +76,8 @@ quests:
       icon: SPIDER_EYE
       name: "&#7f1d1d&lSPIDER SLAYER"
       description:
-        - "&7Clear spooky spiders from the roads."
+        - "&fVersla &#f6d151%goal% &fspinnen."
+        - "&7Maak de donkere wegen weer veilig."
     levels:
       1:
         goal: 16
@@ -136,7 +138,8 @@ quests:
       icon: IRON_SWORD
       name: "&#79b84a&lUNDEAD HUNTER"
       description:
-        - "&7Keep the undead out of town."
+        - "&fVersla &#f6d151%goal% &fzombies."
+        - "&7Houd de ondoden buiten het dorp."
     levels:
       1:
         goal: 16
@@ -197,7 +200,8 @@ quests:
       icon: COOKIE
       name: "&#ff66a3&lCANDY COLLECTOR"
       description:
-        - "&7Harvest sweet treats for Halloween."
+        - "&fBreek &#f6d151%goal% &fmeloenen."
+        - "&7Verzamel zoete Halloween-traktaties."
     levels:
       1:
         goal: 16
@@ -258,7 +262,8 @@ quests:
       icon: OAK_LEAVES
       name: "&#c46a22&lAUTUMN BUILDER"
       description:
-        - "&7Decorate the town in autumn colours."
+        - "&fPlaats &#f6d151%goal% &feikenbladeren."
+        - "&7Versier het dorp met herfstkleuren."
     levels:
       1:
         goal: 16
@@ -319,7 +324,8 @@ quests:
       icon: FISHING_ROD
       name: "&#40e0d0&lSOUL FISHER"
       description:
-        - "&7Catch fish beneath the misty moon."
+        - "&fVang &#f6d151%goal% &fvissen."
+        - "&7Vis onder de mistige herfstmaan."
     levels:
       1:
         goal: 16
@@ -382,7 +388,8 @@ quests:
       icon: WRITABLE_BOOK
       name: "&#b58cff&lGRAVEYARD CHAT"
       description:
-        - "&7Share messages with the coven."
+        - "&fStuur &#f6d151%goal% &fchatberichten."
+        - "&7Elk bericht moet minimaal 8 tekens lang zijn."
     levels:
       1:
         goal: 16
@@ -443,7 +450,8 @@ quests:
       icon: PLAYER_HEAD
       name: "&#ffb000&lTRICK OR TREATER"
       description:
-        - "&7Visit the server during the event."
+        - "&fKom &#f6d151%goal% &fkeer online."
+        - "&7Bezoek de server tijdens het evenement."
     levels:
       1:
         goal: 1
@@ -504,7 +512,8 @@ quests:
       icon: CLOCK
       name: "&#5a3d9a&lNIGHT WATCH"
       description:
-        - "&7Stay vigilant through the night."
+        - "&fSpeel &#f6d151%goal% &fminuten op de server."
+        - "&7Blijf waakzaam tijdens de herfstnacht."
     levels:
       1:
         goal: 8
@@ -565,7 +574,8 @@ quests:
       icon: CREEPER_HEAD
       name: "&#61b13d&lCREEPER EXTERMINATOR"
       description:
-        - "&7Stop creepers before they ruin the party."
+        - "&fVersla &#f6d151%goal% &fcreepers."
+        - "&7Stop ze voordat ze het feest verpesten."
     levels:
       1:
         goal: 16
