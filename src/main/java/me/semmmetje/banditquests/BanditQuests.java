@@ -33,6 +33,7 @@ public final class BanditQuests extends JavaPlugin implements Listener, CommandE
   static final class PlayerData {
     final Map<String, Integer> progress = new HashMap<>();
     final Map<String, Integer> level = new HashMap<>();
+    final Set<String> readyToClaim = new HashSet<>();
   }
   record PassHolder() implements InventoryHolder { @Override public Inventory getInventory() { return null; } }
 
@@ -71,10 +72,11 @@ public final class BanditQuests extends JavaPlugin implements Listener, CommandE
     YamlConfiguration file = YamlConfiguration.loadConfiguration(new File(playerFolder, id + ".yml")); PlayerData value = new PlayerData();
     ConfigurationSection progress = file.getConfigurationSection("progress"); if (progress != null) for (String key : progress.getKeys(false)) value.progress.put(key, progress.getInt(key));
     ConfigurationSection level = file.getConfigurationSection("level"); if (level != null) for (String key : level.getKeys(false)) value.level.put(key, level.getInt(key));
+    value.readyToClaim.addAll(file.getStringList("ready-to-claim"));
     return value;
   }
   private void save(Player p, PlayerData value) {
-    YamlConfiguration file = new YamlConfiguration(); value.progress.forEach((key, amount) -> file.set("progress." + key, amount)); value.level.forEach((key, amount) -> file.set("level." + key, amount));
+    YamlConfiguration file = new YamlConfiguration(); value.progress.forEach((key, amount) -> file.set("progress." + key, amount)); value.level.forEach((key, amount) -> file.set("level." + key, amount)); file.set("ready-to-claim", new ArrayList<>(value.readyToClaim));
     try { file.save(new File(playerFolder, p.getUniqueId() + ".yml")); } catch (IOException e) { getLogger().warning("Could not save quest data: " + e.getMessage()); }
   }
 
@@ -88,16 +90,11 @@ public final class BanditQuests extends JavaPlugin implements Listener, CommandE
     return (q.whitelist.isEmpty() || q.whitelist.contains(key)) && !q.blacklist.contains(key);
   }
   private void advance(Player p, PlayerData value, Quest q, int amount) {
-    int levelIndex = value.level.getOrDefault(q.id, 0); if (levelIndex >= q.levels.size()) return;
+    int levelIndex = value.level.getOrDefault(q.id, 0); if (levelIndex >= q.levels.size() || value.readyToClaim.contains(q.id)) return;
     int progress = value.progress.getOrDefault(q.id, 0) + amount;
-    while (levelIndex < q.levels.size() && progress >= q.levels.get(levelIndex).goal) {
-      Level level = q.levels.get(levelIndex); progress -= level.goal;
-      for (String command : level.rewards) Bukkit.dispatchCommand(Bukkit.getConsoleSender(), replace(command, Map.of("player", p.getName(), "quest", q.id, "level", String.valueOf(levelIndex + 1), "goal", String.valueOf(level.goal))));
-      message(p, "level-complete", Map.of("quest", plain(q.name), "level", String.valueOf(levelIndex + 1)));
-      levelIndex++;
-    }
-    value.level.put(q.id, levelIndex); value.progress.put(q.id, progress);
-    if (levelIndex >= q.levels.size()) message(p, "quest-complete", Map.of("quest", plain(q.name)));
+    Level level = q.levels.get(levelIndex);
+    if (progress >= level.goal) { progress = level.goal; value.readyToClaim.add(q.id); message(p, "reward-ready", Map.of("quest", plain(q.name), "level", String.valueOf(levelIndex + 1))); }
+    value.progress.put(q.id, progress);
   }
 
   @EventHandler(ignoreCancelled = true) public void onBreak(BlockBreakEvent e) { track(e.getPlayer(), "BLOCK_BREAK", e.getBlock().getType().name(), 1); }
@@ -136,13 +133,27 @@ public final class BanditQuests extends JavaPlugin implements Listener, CommandE
     inv.setItem(gui.getInt("board.info.slot", 4), item(material(gui.getString("board.info.material", "JACK_O_LANTERN"), Material.JACK_O_LANTERN), gui.getString("board.info.name"), gui.getStringList("board.info.lore")));
     List<Integer> slots = gui.getIntegerList("board.quest-slots"); int i = 0;
     for (Quest q : quests.values()) { if (i >= slots.size()) break; int levelIndex = value.level.getOrDefault(q.id, 0); boolean done = levelIndex >= q.levels.size(); int progress = value.progress.getOrDefault(q.id, 0); Level level = done ? q.levels.get(q.levels.size()-1) : q.levels.get(levelIndex);
-      Map<String,String> vars = Map.of("name",q.name,"progress",String.valueOf(Math.min(progress, level.goal)),"goal",String.valueOf(level.goal),"level",String.valueOf(Math.min(levelIndex+1,q.levels.size())),"max-level",String.valueOf(q.levels.size()),"status",gui.getString(done ? "quest.status.completed" : "quest.status.active"));
-      List<String> lore = new ArrayList<>(); for (String line : q.description) lore.add(replace(line, vars)); for (String line : gui.getStringList("quest.lore")) lore.add(replace(line, vars));
+      boolean ready = value.readyToClaim.contains(q.id);
+      Map<String,String> vars = Map.of("name",q.name,"progress",String.valueOf(Math.min(progress, level.goal)),"goal",String.valueOf(level.goal),"unit",progressUnit(q),"level",String.valueOf(Math.min(levelIndex+1,q.levels.size())),"max-level",String.valueOf(q.levels.size()),"status",gui.getString(done ? "quest.status.completed" : ready ? "quest.status.ready" : "quest.status.active"));
+      List<String> lore = new ArrayList<>();
+      for (String line : gui.getStringList("quest.header-lore")) lore.add(replace(line, vars));
+      for (String line : q.description) lore.add(replace(line, vars));
+      for (String line : gui.getStringList("quest.footer-lore")) lore.add(replace(line, vars));
       inv.setItem(slots.get(i++), item(done ? material(gui.getString("quest.materials.completed","LIME_DYE"),Material.LIME_DYE) : q.icon, replace(gui.getString("quest.name","%name%"),vars), lore));
     } p.openInventory(inv);
   }
-  @EventHandler public void click(InventoryClickEvent e) { if (e.getInventory().getHolder() instanceof PassHolder) e.setCancelled(true); }
+  @EventHandler public void click(InventoryClickEvent e) {
+    if (!(e.getInventory().getHolder() instanceof PassHolder) || !(e.getWhoClicked() instanceof Player p)) return;
+    e.setCancelled(true); int index = gui.getIntegerList("board.quest-slots").indexOf(e.getRawSlot()); if (index < 0) return;
+    Quest q = quests.values().stream().skip(index).findFirst().orElse(null); if (q == null) return; PlayerData value = get(p);
+    if (!value.readyToClaim.contains(q.id)) return;
+    int levelIndex = value.level.getOrDefault(q.id, 0); if (levelIndex >= q.levels.size()) return; Level level = q.levels.get(levelIndex);
+    for (String command : level.rewards) Bukkit.dispatchCommand(Bukkit.getConsoleSender(), replace(command, Map.of("player", p.getName(), "quest", q.id, "level", String.valueOf(levelIndex + 1), "goal", String.valueOf(level.goal))));
+    value.readyToClaim.remove(q.id); value.progress.put(q.id, 0); value.level.put(q.id, levelIndex + 1); save(p, value);
+    message(p, levelIndex + 1 >= q.levels.size() ? "quest-complete" : "reward-claimed", Map.of("quest", plain(q.name), "level", String.valueOf(levelIndex + 1))); open(p);
+  }
   private Material material(String value, Material fallback) { Material material = Material.matchMaterial(value == null ? "" : value); return material == null ? fallback : material; }
+  private String progressUnit(Quest quest) { return quest.type.equals("PLAY_MINUTES") ? " Minuten" : ""; }
   private ItemStack item(Material material, String name, List<String> lore) { ItemStack stack = new ItemStack(material); ItemMeta meta = stack.getItemMeta(); meta.setDisplayName(color(name)); meta.setLore(lore.stream().map(this::color).toList()); stack.setItemMeta(meta); return stack; }
   private String replace(String text, Map<String,String> values) { String out = text == null ? "" : text; for (var e : values.entrySet()) out = out.replace("%" + e.getKey() + "%", e.getValue()); return out; }
   private String plain(String text) { return text.replaceAll("(?i)&#[0-9a-f]{6}|&[0-9a-fk-or]", ""); }
