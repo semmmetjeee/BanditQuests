@@ -120,7 +120,7 @@ public final class BanditQuests extends JavaPlugin implements Listener, CommandE
   @Override public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     if (command.getName().equalsIgnoreCase("banditquests")) {
       if (!sender.hasPermission("banditquests.admin")) { if (sender instanceof Player p) message(p, "no-permission", Map.of()); return true; }
-      if (args.length == 1 && args[0].equalsIgnoreCase("reload")) { reloadAll(); sender.sendMessage(color(getConfig().getString("messages.reload"))); return true; }
+      if (args.length == 1 && args[0].equalsIgnoreCase("reload")) { reloadAll(); if (sender instanceof Player p) message(p, "reload", Map.of()); else sender.sendMessage(color(replace(getConfig().getString("messages.reload", ""), Map.of()).replace("%prefix%", getConfig().getString("messages.prefix", "")))); return true; }
       sender.sendMessage(color("&6Use: &f/banditquests reload")); return true;
     }
     if (sender instanceof Player p) open(p); else sender.sendMessage("This command is for players only."); return true;
@@ -135,8 +135,9 @@ public final class BanditQuests extends JavaPlugin implements Listener, CommandE
     List<Integer> slots = gui.getIntegerList("board.quest-slots"); int i = 0;
     for (Quest q : quests.values()) { if (i >= slots.size()) break; int levelIndex = value.level.getOrDefault(q.id, 0); boolean done = levelIndex >= q.levels.size(); int progress = value.progress.getOrDefault(q.id, 0); Level level = done ? q.levels.get(q.levels.size()-1) : q.levels.get(levelIndex);
       boolean ready = value.readyToClaim.contains(q.id);
-      String bottomLine = gui.getString(done ? "quest.bottom-lines.completed" : ready ? "quest.bottom-lines.ready" : "quest.bottom-lines.active", "");
-      Map<String,String> vars = Map.of("name",q.name,"progress",String.valueOf(Math.min(progress, level.goal)),"goal",String.valueOf(level.goal),"unit",progressUnit(q),"level",String.valueOf(Math.min(levelIndex+1,q.levels.size())),"max-level",String.valueOf(q.levels.size()),"bottom-line",bottomLine);
+      Map<String,String> baseVars = Map.of("name",q.name,"progress",String.valueOf(Math.min(progress, level.goal)),"goal",String.valueOf(level.goal),"unit",progressUnit(q),"level",String.valueOf(Math.min(levelIndex+1,q.levels.size())),"max-level",String.valueOf(q.levels.size()));
+      String bottomLine = replace(gui.getString(done ? "quest.bottom-lines.completed" : ready ? "quest.bottom-lines.ready" : "quest.bottom-lines.active", ""), baseVars);
+      Map<String,String> vars = new HashMap<>(baseVars); vars.put("bottom-line", bottomLine);
       List<String> lore = new ArrayList<>();
       for (String line : gui.getStringList("quest.header-lore")) lore.add(replace(line, vars));
       for (String line : q.description) lore.add(replace(line, vars));
