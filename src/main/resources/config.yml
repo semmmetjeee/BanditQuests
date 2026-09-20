@@ -3,6 +3,6 @@ messages:
   prefix: "&#ff8c00&lHERFSTPAS &8» &f"
   no-permission: "%prefix%Je hebt hier geen permissie voor."
   reload: "%prefix%Configuratie opnieuw geladen."
-  level-complete: "%prefix%Je hebt level &#ffd166%level% &fvan %quest% voltooid! Je reward is gegeven."
+  reward-ready: "%prefix%Level &#f6d151%level% &fvan %quest% is klaar! Open de Herfstpas om je reward te claimen."
+  reward-claimed: "%prefix%Je reward voor level &#f6d151%level% &fvan %quest% is geclaimd. Het volgende level is gestart!"
   quest-complete: "%prefix%&lGEWELDIG! &fJe hebt alle levels van %quest% voltooid."
-
