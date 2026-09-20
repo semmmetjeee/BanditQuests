@@ -26,10 +26,9 @@ quest:
     - ""
   footer-lore:
     - ""
-    - "&#f6d151→ &fJe bent op level &#f6d151%level%&f/&#f6d151%max-level%"
-    - "%status%"
-    - "%status%"
-  status:
-    active: "&7Voltooi deze quest om je reward vrij te spelen."
-    ready: "&#f6d151→ &fKlik om je reward te claimen!"
-    completed: "&#7CFC00&l✓ &fAlle levels voltooid!"
+    - "&#f6d151→ &#f6d151%bottom-line%"
+  # Fully configurable lower lore line.
+  bottom-lines:
+    active: "Je bent op level %level%/%max-level%"
+    ready: "Klik om je reward te claimen!"
+    completed: "Alle levels voltooid!"
