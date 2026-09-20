@@ -1,6 +1,6 @@
 # Autumn / Halloween Quest Pass
 # Every category has 10 independently configurable levels.
-# Supported types: BLOCK_BREAK, BLOCK_PLACE, CHAT, KILL_PLAYER, KILL_MOB, FISH, PLAY_MINUTES, JOIN
+# Supported types: BLOCK_BREAK, BLOCK_PLACE, CHAT, KILL_PLAYER, KILL_MOB, FISH, PLAY_MINUTES, CRAFT, PUMPKIN_CARVE
 # Each rewards.commands entry is dispatched by console as soon as that level is completed.
 # Available placeholders: %player%, %quest%, %level%, %goal%
 quests:
@@ -441,65 +441,65 @@ quests:
         rewards:
           commands:
             - "money give %player% 100000"
-  trick_or_treater:
-    type: JOIN
+  pumpkin_pie_baker:
+    type: CRAFT
     filters:
-      whitelist: []
+      whitelist: [PUMPKIN_PIE]
       blacklist: []
     display:
-      icon: PLAYER_HEAD
-      name: "&#ffb000&lTRICK OR TREATER"
+      icon: PUMPKIN_PIE
+      name: "&#ffb000&lPUMPKIN PIE BAKER"
       description:
-        - "&fKom &#f6d151%goal% &fkeer online."
-        - "&7Bezoek de server tijdens het evenement."
+        - "&fMaak &#f6d151%goal% &fpumpkin pies."
+        - "&7Bak lekkere taarten voor het Halloweenfeest."
     levels:
       1:
-        goal: 1
+        goal: 4
         rewards:
           commands:
             - "money give %player% 5000"
       2:
-        goal: 2
+        goal: 8
         rewards:
           commands:
             - "money give %player% 7500"
       3:
-        goal: 4
+        goal: 16
         rewards:
           commands:
             - "money give %player% 10000"
       4:
-        goal: 6
+        goal: 24
         rewards:
           commands:
             - "money give %player% 15000"
       5:
-        goal: 8
+        goal: 32
         rewards:
           commands:
             - "money give %player% 20000"
       6:
-        goal: 12
+        goal: 48
         rewards:
           commands:
             - "money give %player% 27500"
       7:
-        goal: 16
+        goal: 64
         rewards:
           commands:
             - "money give %player% 35000"
       8:
-        goal: 24
+        goal: 96
         rewards:
           commands:
             - "money give %player% 45000"
       9:
-        goal: 32
+        goal: 128
         rewards:
           commands:
             - "money give %player% 60000"
       10:
-        goal: 48
+        goal: 192
         rewards:
           commands:
             - "money give %player% 100000"
