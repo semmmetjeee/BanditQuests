@@ -20,13 +20,16 @@ quest:
   materials:
     completed: LIME_DYE
   name: "%name%"
-  lore:
+  header-lore:
     - ""
-    - "&#ff8c00&l| &fLevel: &#ffd166%level%&7/&#ffd166%max-level%"
-    - "&#ff8c00&l| &fVoortgang: &#ffd166%progress%&7/&#ffd166%goal%"
+    - "&#f6d151✔️ &fProgressie &#f6d151%progress%&f/&#f6d151%goal%%unit%"
     - ""
+  footer-lore:
+    - ""
+    - "&#f6d151→ &fJe bent op level &#f6d151%level%&f/&#f6d151%max-level%"
+    - "%status%"
     - "%status%"
   status:
-    active: "&7Voltooi dit level voor je volgende reward."
+    active: "&7Voltooi deze quest om je reward vrij te spelen."
+    ready: "&#f6d151→ &fKlik om je reward te claimen!"
     completed: "&#7CFC00&l✓ &fAlle levels voltooid!"
-
